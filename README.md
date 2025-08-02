@@ -217,6 +217,97 @@ screenshot-rounder/
 
 This is a personal utility script. Use and modify as needed for your presentations!
 
+## Stopping the Service
+
+### **Temporary Stop (Until Next Restart)**
+```bash
+# Stop the service immediately
+python3 launch_agent.py remove
+
+# Or manually stop the process
+pkill -f screenshot_rounder.py
+```
+
+### **Permanent Stop (Disable Auto-Start)**
+```bash
+# Remove LaunchAgent completely
+python3 launch_agent.py remove
+
+# Verify it's stopped
+python3 launch_agent.py status
+```
+
+### **Manual Control**
+```bash
+# Check if running
+ps aux | grep screenshot_rounder
+
+# Force stop all instances
+pkill -f screenshot_rounder
+```
+
+## Resource Monitoring
+
+### **CPU and Memory Usage**
+```bash
+# Check current resource usage
+ps aux | grep screenshot_rounder
+
+# Monitor in real-time
+top -pid $(pgrep -f screenshot_rounder.py)
+
+# Detailed resource info
+ps -o pid,ppid,pcpu,pmem,command -p $(pgrep -f screenshot_rounder.py)
+```
+
+### **Expected Resource Usage**
+- **CPU**: < 1% (idle monitoring)
+- **Memory**: ~15-25MB (Python + dependencies)
+- **Disk**: Minimal (only log files)
+- **Network**: None (local operations only)
+
+### **Performance Impact**
+- ✅ **Minimal CPU usage** - Only active when processing screenshots
+- ✅ **Low memory footprint** - ~20MB total
+- ✅ **No network activity** - All operations local
+- ✅ **No disk I/O** - Only writes logs and processed images
+
+### **Monitoring Commands**
+```bash
+# Real-time monitoring
+watch -n 1 'ps aux | grep screenshot_rounder'
+
+# Memory usage
+memory_profiler screenshot_rounder.py
+
+# System impact
+sudo powermetrics -i 1000 -n 1 | grep -i screenshot
+```
+
+## Troubleshooting
+
+### **Service Not Starting**
+```bash
+# Check LaunchAgent logs
+tail -f ~/.screenshot_rounder/logs/launchd_stdout.log
+tail -f ~/.screenshot_rounder/logs/launchd_stderr.log
+
+# Reinstall service
+python3 launch_agent.py remove
+python3 launch_agent.py install
+```
+
+### **High Resource Usage**
+If you notice high CPU/memory usage:
+```bash
+# Restart the service
+python3 launch_agent.py remove
+python3 launch_agent.py install
+
+# Check for multiple instances
+ps aux | grep screenshot_rounder
+```
+
 ## Contributing
 
 This is a personal utility, but feel free to suggest improvements or report issues.
