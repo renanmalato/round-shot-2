@@ -63,4 +63,15 @@ Demo_Screenshot*.png
 temp_*.png
 
 # Application data
-.screenshot_rounder/ 
+.screenshot_rounder/
+
+# Additional security (optional)
+.env
+.env.local
+.env.*.local
+secrets.json
+config.local.json
+*.key
+*.pem
+*.p12
+*.crt 
