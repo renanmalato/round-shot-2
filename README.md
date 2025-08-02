@@ -6,10 +6,11 @@ Automatically add rounded corners to your macOS screenshots for presentations an
 
 - 🔄 **Automatic Processing**: Monitors your screenshot folder and processes images automatically
 - 📋 **Clipboard Integration**: Automatically copies processed images to clipboard
+- 🎯 **Smart Detection**: Recognizes various screenshot patterns (Screenshot, CleanShot, etc.)
 - ⚙️ **Configurable**: Customize corner radius, output location, and file patterns
 - 📊 **Comprehensive Logging**: Detailed logs for debugging and monitoring
 - 🚀 **Background Service**: Run as a macOS LaunchAgent for automatic startup
-- 🎯 **Smart Detection**: Recognizes various screenshot patterns (Screenshot, CleanShot, etc.)
+- 🧹 **Clean Mode**: Option to only use clipboard (no files saved to Desktop)
 
 ## Quick Start
 
@@ -87,6 +88,7 @@ Edit `config.json` to customize behavior:
 - **`corner_radius_percentage`**: Percentage of smallest dimension (when `use_percentage` is true)
 - **`use_percentage`**: Use percentage-based radius for responsive sizing
 - **`auto_copy_to_clipboard`**: Automatically copy processed images to clipboard
+- **`save_to_desktop`**: Save processed images to Desktop folder (default: false)
 - **`replace_original`**: Replace original screenshots instead of creating new files
 - **`file_patterns`**: List of filename patterns to monitor
 - **`processing_delay`**: Delay in seconds before processing new files

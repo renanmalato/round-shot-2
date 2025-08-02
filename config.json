@@ -5,6 +5,7 @@
   "corner_radius_percentage": 0.05,
   "use_percentage": true,
   "auto_copy_to_clipboard": true,
+  "save_to_desktop": false,
   "replace_original": false,
   "monitor_enabled": true,
   "monitor_clipboard": true,

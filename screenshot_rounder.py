@@ -198,11 +198,22 @@ class ImageProcessor:
                 # ------------------------------- #
                 
                 output_path = self.get_output_path(image_path)
-                img.save(output_path, 'PNG', optimize=True)
+                
+                if output_path:
+                    # Save to file
+                    img.save(output_path, 'PNG', optimize=True)
+                    self.logger.info(f"💾 Saved to: {output_path}")
+                else:
+                    # Only clipboard mode - save to temp for clipboard
+                    temp_file = tempfile.NamedTemporaryFile(suffix='.png', delete=False)
+                    temp_path = Path(temp_file.name)
+                    img.save(temp_path, 'PNG', optimize=True)
+                    temp_file.close()
+                    output_path = temp_path
+                    self.logger.debug(f"📋 Saved to temp for clipboard: {temp_path}")
                 
                 processing_time = time.time() - start_time
                 self.logger.info(f"✅ Image processed successfully in {processing_time:.2f}s")
-                self.logger.info(f"💾 Saved to: {output_path}")
                 
                 return output_path
                 
@@ -210,8 +221,14 @@ class ImageProcessor:
             self.logger.error(f"❌ Error processing image {image_path}: {str(e)}")
             return None
     
-    def get_output_path(self, input_path: Path) -> Path:
+    def get_output_path(self, input_path: Path) -> Optional[Path]:
         """Determine output path for processed image"""
+        
+        # Check if desktop saving is disabled
+        if not self.config.config.get('save_to_desktop', True):
+            self.logger.debug(f"📝 Desktop saving disabled - only clipboard mode")
+            return None
+            
         if self.config.config.get('replace_original', False):
             output_path = input_path
             self.logger.debug(f"📝 Will replace original file: {output_path}")
@@ -352,8 +369,10 @@ class ClipboardManager:
                         else:
                             self.logger.error("❌ Failed to process clipboard image")
                         
-                        # Clean up temp file
+                        # Clean up temp files
                         temp_path.unlink(missing_ok=True)
+                        if output_path and output_path != temp_path:
+                            output_path.unlink(missing_ok=True)
                     
                     self.last_clipboard_content = current_content
                 

@@ -42,7 +42,7 @@ def create_launch_agent():
     
     <key>ProgramArguments</key>
     <array>
-        <string>/usr/bin/python3</string>
+        <string>{current_dir}/venv/bin/python3</string>
         <string>{script_path}</string>
         <string>--config</string>
         <string>{config_path}</string>
