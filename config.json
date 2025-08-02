@@ -1,0 +1,14 @@
+{
+  "screenshot_folder": "~/Desktop",
+  "output_folder": "~/Desktop/rounded_screenshots",
+  "corner_radius": 20,
+  "corner_radius_percentage": 0.05,
+  "use_percentage": true,
+  "auto_copy_to_clipboard": true,
+  "replace_original": false,
+  "monitor_enabled": true,
+  "monitor_clipboard": true,
+  "log_level": "DEBUG",
+  "file_patterns": ["Screenshot*.png", "CleanShot*.png", "Screen Shot*.png"],
+  "processing_delay": 0.5
+}

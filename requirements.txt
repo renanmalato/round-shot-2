@@ -1,0 +1,5 @@
+Pillow>=10.0.0
+watchdog>=3.0.0
+pyobjc-framework-Cocoa>=9.0.0
+pyobjc-framework-Quartz>=9.0.0
+pynput>=1.7.6
